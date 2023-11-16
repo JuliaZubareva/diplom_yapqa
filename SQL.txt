@@ -1,0 +1,18 @@
+#1. выведи список логинов курьеров с количеством их заказов в статусе «В доставке» (поле inDelivery = true)
+SELECT COUNT(*) AS ordersCount,
+       "Couriers".login
+FROM "Couriers"
+JOIN "Orders" ON "Couriers".id = "Orders"."courierId"
+WHERE "Orders"."inDelivery" = true
+GROUP BY "Couriers".login;
+
+
+#2 выведи все трекеры заказов и их статусы
+SELECT  track,
+        CASE
+        WHEN finished = true THEN 2
+        WHEN cancelled = true THEN -1
+        WHEN "inDelivery" = true THEN 1
+        ELSE 0
+        END AS zakaz_status
+FROM "Orders";
